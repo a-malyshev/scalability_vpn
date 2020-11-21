@@ -1,0 +1,18 @@
+apiVersion: policy/v1beta1
+kind: PodSecurityPolicy
+metadata:
+  name: sysctl-psp
+spec:
+  privileged: true
+  seLinux:
+    rule: RunAsAny
+  supplementalGroups:
+    rule: RunAsAny
+  runAsUser:
+    rule: RunAsAny
+  fsGroup:
+    rule: RunAsAny
+  allowedUnsafeSysctls:
+  - net.ipv4.conf.all.src_valid_mark
+    # forbiddenSysctls:
+    #- kernel.shm_rmid_forced

@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: wg-client
+  labels:
+    app: wg-client
+spec:
+  hostNetwork: true
+  securityContext:
+    sysctls:
+    - name: net.ipv4.conf.all.src_valid_mark
+      value: "1"
+  containers:
+    - name: alpine-pod
+      #image: alpine
+      image: jiexa/wg-client
+      command: [ "sh", "-c", "sleep 1h" ]
+      imagePullPolicy: Always
+      securityContext:
+        privileged: true
+        capabilities:
+          add:
+          - NET_ADMIN
+      ports:
+        - containerPort: 51820
+          protocol: UDP
+          hostPort: 51820
+          #nodeSelector:
+          #app: wg-client
+

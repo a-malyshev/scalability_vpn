@@ -1,0 +1,4 @@
+k exec --stdin --tty alpine-pod -- /bin/sh
+k delete pods --all
+k delete services --all
+k get pod -o wide

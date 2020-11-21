@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wg-client-deployment
+  labels:
+    app: wg-client
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: wg-client
+  template:
+    metadata:
+      labels:
+        app: wg-client
+    spec:
+      #hostNetwork: true
+      containers:
+      - name: wireguard
+        image: jiexa/wg-client
+        imagePullPolicy: Always
+        securityContext:
+          privileged: true
+          capabilities:
+            add:
+            - NET_ADMIN
+        ports:
+          - containerPort: 51820
+            protocol: UDP
+            hostPort: 51820
